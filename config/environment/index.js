@@ -13,6 +13,7 @@ const env = {
 
 const mongo = {
   url: process.env.MONGO_URI,
+  debug: process.env.MONGOOSE_DEBUG === 'true'
 };
 
 export { port, env, mongo };

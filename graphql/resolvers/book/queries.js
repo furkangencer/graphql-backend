@@ -1,15 +1,11 @@
-import { Book, Author } from '../../../db/models';
+import { Book } from '../../../db/models';
 
 const bookQueries = {
-  books: async (_, args) => {
+  books: async (_, args, { loaders }) => {
     const books = await Book.find();
-    return books;
+    return loaders.book.many(books.map(({ id }) => id));
   },
-  book: async (_, { id }) => {
-    const book = await Book.findById(id);
-
-    return book;
-  },
+  book: async (_, { id }, { loaders }) => loaders.book.one(id),
 };
 
 export default bookQueries;

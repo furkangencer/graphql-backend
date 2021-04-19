@@ -9,6 +9,7 @@ const connectDB = async () => {
 
   try {
     console.log('Connecting to database');
+    Mongoose.set('debug', mongo.debug);
     db = await Mongoose.connect(mongo.url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

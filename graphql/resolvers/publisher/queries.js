@@ -1,16 +1,11 @@
 import { Publisher } from '../../../db/models';
 
 const publisherQueries = {
-  publishers: async (_, args) => {
+  publishers: async (_, args, { loaders }) => {
     const publishers = await Publisher.find();
-
-    return publishers;
+    return loaders.publisher.many(publishers.map(({ id }) => id))
   },
-  publisher: async (_, { id }) => {
-    const publisher = await Publisher.findById(id);
-
-    return publisher;
-  },
+  publisher: async (_, { id }, { loaders }) => loaders.publisher.one(id),
 };
 
 
